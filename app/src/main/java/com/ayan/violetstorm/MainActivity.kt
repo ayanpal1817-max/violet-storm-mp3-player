@@ -157,15 +157,6 @@ class MainActivity : ComponentActivity() {
                     delay(350)
                 }
             }
-            LaunchedEffect(player?.audioSessionId) {
-                val id = player?.audioSessionId ?: 0
-                if (id > 0) try {
-                    audioEq?.release()
-                    audioEq = Equalizer(0, id).apply { enabled = true }
-                    eqMessage = "Audio equalizer connected"
-                } catch (_: Exception) { eqMessage = "Equalizer not supported on this watch" }
-            }
-
             val current = library.firstOrNull { it.title == title }
             val visible = library.filter {
                 val q = search.trim().lowercase(Locale.ROOT)
@@ -195,8 +186,8 @@ class MainActivity : ComponentActivity() {
                             }
                             Slider(value = (pos / dur).coerceIn(0f,1f), onValueChange = { pos = it * dur }, onValueChangeFinished = { player?.seekTo(pos.toLong()) })
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                Text(clock(pos), color = Muted, fontSize = 9.sp)
-                                Text(clock(dur), color = Muted, fontSize = 9.sp)
+                                Text(clock(pos.toLong()), color = Muted, fontSize = 9.sp)
+                                Text(clock(dur.toLong()), color = Muted, fontSize = 9.sp)
                             }
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
                                 ButtonCircle("◀|", 39) { player?.seekToPreviousMediaItem() }
@@ -237,7 +228,7 @@ class MainActivity : ComponentActivity() {
                             Header("ALBUMS & ARTISTS") { page = "Menu" }
                             Search(search) { search = it }
                             val groups = visible.groupBy { it.album }
-                            LazyColumn(Modifier.fillMaxWidth().weight(1f)) {
+                            LazyColumn(Modifier.fillMaxWidth().heightIn(max = 190.dp)) {
                                 groups.forEach { (album, songs) -> item { MenuRow(album, "\${songs.size} tracks") { play(songs, 0) } } }
                                 if (groups.isEmpty()) item { Text("Add songs from Library first.", color = Muted, fontSize = 10.sp) }
                             }
