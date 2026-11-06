@@ -31,8 +31,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.7.8")
     implementation("androidx.compose.foundation:foundation:1.7.8")
     implementation("androidx.compose.material3:material3:1.3.1")
-    implementation("androidx.wear.compose:compose-material3:1.0.0")
-    implementation("androidx.wear.compose:compose-foundation:1.4.1")
     implementation("androidx.media3:media3-exoplayer:1.5.1")
     implementation("androidx.media3:media3-session:1.5.1")
     implementation("androidx.media3:media3-ui:1.5.1")
