@@ -303,7 +303,7 @@ private fun Search(value: String, change: (String) -> Unit) {
 
 @Composable
 private fun TrackRows(list: List<Track>, favorites: Set<String>, play: (Track) -> Unit, favorite: (Track) -> Unit) {
-    LazyColumn(Modifier.fillMaxWidth().weight(1f)) {
+    LazyColumn(Modifier.fillMaxWidth().heightIn(max = 190.dp)) {
         items(list, key = { it.uri }) { t ->
             Row(Modifier.fillMaxWidth().padding(vertical = 3.dp).clip(RoundedCornerShape(15.dp)).background(Panel).border(1.dp, Color(0xFF39206A), RoundedCornerShape(15.dp)).clickable { play(t) }.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 AlbumTile(31)
